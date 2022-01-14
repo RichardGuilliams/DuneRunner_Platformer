@@ -1,0 +1,147 @@
+{
+    "name": "PlayerInput",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "f0292bbe-8934-46fb-89b3-86baa78df626",
+            "actions": [
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "7085015e-8f9c-4646-a28f-51ac76087d20",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Run",
+                    "type": "Button",
+                    "id": "2f276678-eefa-4b05-9ff8-d83bb06c48ee",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Climb",
+                    "type": "Button",
+                    "id": "13ed19f7-4912-4e21-a553-be3e790b938a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "baffceea-699f-4784-8dbc-76ceeacb8281",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Target",
+                    "type": "Button",
+                    "id": "c31fc7bf-4f19-48c4-baf7-847ea478c09f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Dodge",
+                    "type": "Button",
+                    "id": "9f1a7d0d-1e6a-425a-80f8-26a9e417ff62",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Move",
+                    "type": "Button",
+                    "id": "4aeb7cd5-ea10-4567-9fdd-8cf1690baa78",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b76efa28-47ef-44db-a2fe-7a152d0bc6bf",
+                    "path": "<SwitchProControllerHID>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "262f544e-7dc1-48f2-beb8-8437d7ee67a7",
+                    "path": "<SwitchProControllerHID>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Run",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "858afdb9-33fa-4304-ba2c-0b737633db35",
+                    "path": "<SwitchProControllerHID>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Climb",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2d739dad-db53-4b02-b1cf-82810819a9c9",
+                    "path": "<SwitchProControllerHID>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b0d54cdf-e1a0-42da-bccd-07c5c617acce",
+                    "path": "<SwitchProControllerHID>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Target",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "929fdb14-4972-47fa-ac0b-800c0d010495",
+                    "path": "<SwitchProControllerHID>/rightStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dodge",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c274d6d3-3057-4922-ba38-3dabf7367337",
+                    "path": "<SwitchProControllerHID>/leftStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
