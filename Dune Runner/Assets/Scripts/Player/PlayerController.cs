@@ -12,10 +12,7 @@ public class PlayerController : MonoBehaviour
             if (instance == null)
             {
                 instance = FindObjectOfType<PlayerController>();
-                if (instance == null)
-                {
-                    instance = new GameObject().AddComponent<PlayerController>();
-                }
+                if (instance == null) instance = new GameObject().AddComponent<PlayerController>();
             }
             return instance;
         }
@@ -61,7 +58,7 @@ public class PlayerController : MonoBehaviour
         stateManager = stateManager.GetComponent<StateManager>();
     }
 
-    public void checkSprint()
+    public void checkSpeed()
     {
         if (input.RunKeyHeld()) movement.speed = stateManager.running.run.speed;
         else movement.speed = stateManager.walking.walk.speed;
@@ -71,10 +68,10 @@ public class PlayerController : MonoBehaviour
     {
         input.checkInput();
         stateManager.RunCurrentState(this);
-        stateManager.jumping.jump.UpdatePosition();
+        movement.UpdatePosition();
         if (stateManager.CanMove())
         {
-            checkSprint();
+            checkSpeed();
             movement.Move(rb);
         }
         movement.FlipSprite(transform, input.LeftInput(), input.RightInput());

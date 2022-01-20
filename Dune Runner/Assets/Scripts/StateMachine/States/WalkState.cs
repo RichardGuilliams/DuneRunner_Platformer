@@ -6,10 +6,7 @@ public class WalkState : StateHandler
 {
     #region StateAction
     public WalkAction walk;
-    #endregion
-
-    #region Handle State
-    public void DoState(PlayerController player)
+    public override void DoState(PlayerController player)
     {
         if (player.input.IsAttemptingJump()) 
         {

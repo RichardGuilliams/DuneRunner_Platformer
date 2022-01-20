@@ -410,6 +410,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 273637beb8a1f844082224753da00e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  subStates: []
   actionName: Standing
   speed: 0
   cost: 0
@@ -1088,6 +1089,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6301cd0b03ee01543b94b63f5b264941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  subStates: []
   actionName: Jumping
   speed: 15
   cost: 4
@@ -2127,6 +2129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5baaf937ebaf5434da9b5fda926fc514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  subStates: []
   actionName: Walking
   speed: 6
   cost: 0
@@ -3996,6 +3999,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1415284311}
   - component: {fileID: 1415284310}
+  - component: {fileID: 1415284312}
   m_Layer: 0
   m_Name: Debugger
   m_TagString: Untagged
@@ -4033,6 +4037,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1415284312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415284309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b171f543476a0db40b65b7538b116249, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 0}
 --- !u!1 &1429409176
 GameObject:
   m_ObjectHideFlags: 0
@@ -4077,6 +4094,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db6ebab6bc964c14ba167330a67aa811, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  subStates: []
   actionName: Running
   speed: 12
   cost: 3
@@ -4138,6 +4156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab52a68c04db525459a6b4940d73f027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  subStates: []
   actionName: Climbing
   speed: 4
   cost: 3
@@ -4594,6 +4613,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateHandlerName: 
+  states: []
   standing: {fileID: 13961507}
   walking: {fileID: 603547626}
   running: {fileID: 1429409179}

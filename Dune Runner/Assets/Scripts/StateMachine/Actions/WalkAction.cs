@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class WalkAction : Action
 {
-    public void ProcessWalk(PlayerController player)
+    public override void ProcessAction(PlayerController player)
     {
         player.movement.SetSpeed(player.stateManager.walking.walk.speed);
         if (player.stateManager.CanMove())
         {
-        player.movement.Move(player.rb);
+            player.movement.Move(player.rb);
         }
         return;
     }

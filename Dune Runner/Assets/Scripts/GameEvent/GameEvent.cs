@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameEvent : MonoBehaviour
+public abstract class GameEvent : MonoBehaviour
 {
-
+    public abstract int Thingy { get; }
 }

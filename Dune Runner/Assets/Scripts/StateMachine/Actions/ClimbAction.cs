@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// TODO: Change names of the statehandlers to include "state" in the name to clear up readability
-// Also attach "action" to action names and "sub" for substate names.
 public class ClimbAction : Action
 {
     public float hangingCost;
@@ -15,7 +13,7 @@ public class ClimbAction : Action
     [HideInInspector]
     public Vector2 climbCollision;
 
-    public bool IsClimbing(PlayerController player)
+    public override bool IsPerformingAction(PlayerController player)
     {
         if (player.input.ClimbKeyHeld() && !player.stateManager.ExhaustedState())
         {
@@ -24,7 +22,7 @@ public class ClimbAction : Action
         return false;
     }
 
-    public void ProcessClimb(PlayerController player)
+    public override void ProcessAction(PlayerController player)
     {
         if (!player.rays.OnWall())
         {
@@ -35,6 +33,7 @@ public class ClimbAction : Action
         if (player.rays.OnLedge())
         {
             player.stateManager.climbing.subState = player.stateManager.climbing.hanging;
+            currentState = player.stateManager.stateHandlerName;
             return;
         }
         if (player.input.JumpKeyHeld())
@@ -43,14 +42,13 @@ public class ClimbAction : Action
             player.stateManager.climbing.subState = player.stateManager.climbing.jumping;
             return;
         }
-        if (!IsClimbing(player))
+        if (!IsPerformingAction(player))
         {
             player.stateManager.climbing.subState = player.stateManager.climbing.hanging;
             return;
         }
-        if (IsClimbing(player) && player.rays.ChestCollision())
-        {            //player.velocity.y = player.climbSpeed;
-            //player.velocity.x = player.climbSpeed * player.direction.x;
+        if (IsPerformingAction(player) && player.rays.ChestCollision())
+        {    
             player.movement.velocity.y = player.stateManager.climbing.climb.speed;
             player.rb.velocity = player.movement.velocity;
             player.stateManager.climbing.subState = player.stateManager.climbing.climbing;
@@ -58,7 +56,7 @@ public class ClimbAction : Action
         }
     }
 
-    public void Hang(PlayerController player)
+    public override void MaintainAction(PlayerController player)
     {
         player.rb.gravityScale = player.physics.gravityScale;
         if (!player.rays.OnWall())
@@ -70,13 +68,13 @@ public class ClimbAction : Action
         if (player.input.IsAttemptingClimb() && !player.rays.OnLedge() && player.rays.OnWall())
         {
             // perfect example of why we need to seperate states, substates, and actions with better naming. To Avoid duplicate names.
-            player.stateManager.climbing.subState = player.stateManager.climbing.climbing;
+            currentState = "climbing";
             return;
         }
         if (player.input.JumpKeyHeld())
         {
             player.rb.gravityScale = player.physics.gravityScale;
-            player.stateManager.climbing.subState = player.stateManager.climbing.jumping;
+            currentState = "jumping";
             return;
         }
         player.movement.velocity.y = 0;
@@ -84,17 +82,12 @@ public class ClimbAction : Action
         player.rb.velocity = player.movement.velocity;
         player.rb.gravityScale = 0;
         return;
-
     }
 
-    public void Ledge(PlayerController player)
+    public override void DescendAction(PlayerController player)
     {
-        player.stateManager.climbing.subState = player.stateManager.climbing.hanging;
+        currentState = "hanging";
         return;
     }
 
-    public void Ceiling(PlayerController player)
-    {
-
-    }
 }

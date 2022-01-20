@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    public float gravityScale;
+
     [HideInInspector]
     public Vector3 direction;
     [HideInInspector]
     public bool canChangeDirection;
+    [HideInInspector]
+    public float currentYPosition;
+    [HideInInspector]
+    public float lastYPostion;
     [HideInInspector]
     public float speed;
     [HideInInspector]
@@ -27,6 +33,16 @@ public class Movement : MonoBehaviour
         velocity.x = Input.GetAxisRaw("Horizontal") * speed;
         velocity.y = rb.velocity.y;
         rb.velocity = velocity;
+    }
+
+    public void UpdatePosition()
+    {
+        lastYPostion = currentYPosition;
+    }
+
+    public void ResetYPosition()
+    {
+        currentYPosition = transform.position.y;
     }
     public void FlipSprite(Transform transform, bool left, bool right)
     {

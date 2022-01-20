@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class WaitState : StateHandler
 {
-    #region Handle State
-    public void DoState(PlayerController player)
+    public override void DoState(PlayerController player)
     {
         Debug.Log("Waiting");
         player.stateManager.playerState.currentState = player.stateManager.playerState.standing;
         return;
     }
-    #endregion
 }

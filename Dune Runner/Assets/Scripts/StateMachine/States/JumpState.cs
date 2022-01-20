@@ -8,36 +8,6 @@ public class JumpState : StateHandler
     public JumpAction jump;
     #endregion
 
-    #region States
-
-    public enum SubState
-    {
-        None,
-        RopeJump,
-        Jumping,
-        Jumped,
-        Falling,
-        JumpComplete,
-        Climbing,
-        Running,
-        Walking,
-        Standing
-    }
-
-    public SubState none = SubState.None;
-    public SubState ropeJump = SubState.RopeJump;
-    public SubState jumping = SubState.Jumping;
-    public SubState jumped = SubState.Jumped;
-    public SubState falling = SubState.Falling;
-    public SubState jumpComplete = SubState.JumpComplete;
-    public SubState climbing = SubState.Climbing;
-    public SubState running = SubState.Running;
-    public SubState walking = SubState.Walking;
-    public SubState standing = SubState.None;
-
-    public SubState subState;
-    #endregion
-
     #region State Booleans
     public bool StateActive(PlayerController player)
     {
@@ -47,7 +17,7 @@ public class JumpState : StateHandler
     #endregion
 
     #region Handle State
-    public void DoState(PlayerController player)
+    public override void DoState(PlayerController player)
     {
         switch (subState)
         {

@@ -4,72 +4,78 @@ using UnityEngine;
 
 public class JumpAction : Action
 {
-    public float gravityScale;
-    [HideInInspector]
-    public float currentYPosition;
-    [HideInInspector]
-    public float lastYPostion;
-
-    public void UpdatePosition()
+    public override void ProcessAction(PlayerController player)
     {
-        lastYPostion = currentYPosition;
+        StartAction(player);
+        player.rb.AddForce(Vector2.up * player.stateManager.jumping.jump.speed, ForceMode2D.Impulse);
+        currentState = ascendAction;
     }
 
-    public void ResetYPosition()
+    public override void StartAction(PlayerController player)
     {
-        currentYPosition = transform.position.y;
-    }
-
-
-    public void JumpStart(PlayerController player)
-    {
-        player.stateManager.jumping.jump.lastYPostion = player.transform.position.y;
-        player.stateManager.jumping.jump.currentYPosition = player.transform.position.y;
+        player.movement.lastYPostion = player.transform.position.y;
+        player.movement.currentYPosition = player.transform.position.y;
         player.movement.velocity.y = 0;
         player.rb.velocity = player.movement.velocity;
     }
 
-    public void ProcessJump(PlayerController player)
-    {
-        JumpStart(player);
-        player.rb.AddForce(Vector2.up * player.stateManager.jumping.jump.speed, ForceMode2D.Impulse);
-        player.stateManager.jumping.subState = player.stateManager.jumping.jumped;
-    }
-
-    public void CheckActions(PlayerController player)
-    {
-        if (player.stateManager.CanClimb(player))
-        {
-            player.stateManager.jumping.subState = player.stateManager.jumping.jumpComplete;
-        }
-        if (!player.input.JumpKeyHeld() || player.stateManager.jumping.jump.lastYPostion > player.stateManager.jumping.jump.currentYPosition)
-        {
-            player.stateManager.jumping.subState = player.stateManager.jumping.falling;
-        }
-    }
-
-    public void AirTime(PlayerController player)
-    {
-        player.stateManager.jumping.jump.ResetYPosition();
-        player.movement.Move(player.rb);
-        CheckActions(player);
-        player.stateManager.jumping.jump.UpdatePosition();
-
-    }
-
-    public void Fall(PlayerController player)
+    public override void EndAction(PlayerController player)
     {
         player.movement.velocity.x = player.rb.velocity.x;
         if (player.stateManager.CanClimb(player))
         {
-            player.stateManager.jumping.subState = player.stateManager.jumping.jumpComplete;
+            currentState = endAction;
         }
         if (player.rays.OnGround())
         {
             player.rb.AddForce(Vector2.right * player.movement.velocity.x);
-            player.stateManager.jumping.subState = player.stateManager.jumping.jumpComplete;
+            currentState = endAction;
         }
-        player.rb.AddForce(Vector2.up * player.stateManager.jumping.jump.speed * -player.stateManager.jumping.jump.gravityScale, ForceMode2D.Impulse);
+        player.rb.AddForce(Vector2.up * player.stateManager.jumping.jump.speed * -player.movement.gravityScale, ForceMode2D.Impulse); throw new System.NotImplementedException();
     }
 
+    public override void CheckAction(PlayerController player)
+    {
+        if (player.stateManager.CanClimb(player))
+        {
+            currentState = endAction;
+        }
+        if (!player.input.JumpKeyHeld() || player.movement.lastYPostion > player.movement.currentYPosition)
+        {
+            currentState = descendAction;
+        }
+    }
+
+    public override bool CanPerformAction(PlayerController player)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override bool IsPerformingAction(PlayerController player)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override bool TryingPerformAction(PlayerController player)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void AscendAction(PlayerController player)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void MaintainAction(PlayerController player)
+    {
+        player.movement.ResetYPosition();
+        player.movement.Move(player.rb);
+        CheckAction(player);
+        player.movement.UpdatePosition();
+    }
+
+    public override void DescendAction(PlayerController player)
+    {
+        throw new System.NotImplementedException();
+    }
 }

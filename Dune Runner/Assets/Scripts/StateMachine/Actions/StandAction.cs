@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class StandAction : Action
 {
-    public float restingBonus;
+
 }

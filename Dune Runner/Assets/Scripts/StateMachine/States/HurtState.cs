@@ -4,16 +4,10 @@ using UnityEngine;
 
 public class HurtState : StateHandler
 {
-    #region State 
-
-    #endregion
-
-    #region Handle State
-    public void DoState(PlayerController player)
+    public override void DoState(PlayerController player)
     {
         Debug.Log("Hurt");
         player.stateManager.playerState.currentState = player.stateManager.playerState.hurt;
     }
-    #endregion
 }
 

@@ -8,23 +8,7 @@ public class RunState : StateHandler
     public RunAction run;
     #endregion
 
-    #region States
-    public enum SubState
-    {
-        None,
-        Run,
-        Jump,
-        Climb,
-        Walk,
-        Exhausted,
-        Hurt
-    }
-
-    public SubState subState;
-    #endregion
-
-    #region Handle State
-    public void DoState(PlayerController player)
+    public override void DoState(PlayerController player)
     {
         switch (subState)
         {
@@ -44,57 +28,6 @@ public class RunState : StateHandler
             case SubState.Walk:
                 player.stateManager.playerState.currentState = player.stateManager.playerState.walking;
                 break;
-
-            case SubState.Exhausted:
-                player.stateManager.playerState.currentState = player.stateManager.playerState.exhausted;
-                break;
-
-            case SubState.Hurt:
-                subState = SubState.Run;
-                player.stateManager.playerState.currentState = player.stateManager.playerState.hurt;
-                break;
-
-            default:
-                subState = SubState.Run;
-                player.stateManager.playerState.currentState = player.stateManager.playerState.running;
-                break;
         }
     }
-    public void Run(PlayerController player)
-    {
-        
-        if (player.stateManager.ExhaustedState())
-        {
-            subState = SubState.Exhausted;
-            player.stateManager.playerState.currentState = player.stateManager.playerState.running;
-            return;
-        }
-        if (player.stateManager.HurtState())
-        {
-            subState = SubState.Hurt;
-            return;
-        }
-        if (player.input.IsAttemptingJump() &&  player.rays.OnGround())
-        {
-            subState = SubState.Jump;
-            return;
-        }
-        if (player.input.IsAttemptingClimb())
-        {
-            subState = SubState.Climb;
-            return;
-        }
-        // Checks if player is moving but not holding the runKey, if true we change to Walking State
-        else if (player.input.IsAttemptingWalk())
-        {
-            player.movement.SetSpeed(player.stateManager.walking.walk.speed);
-            subState = SubState.Walk;
-            return;
-        }
-        player.movement.SetSpeed(player.stateManager.running.run.speed);
-        player.movement.Move(player.rb);
-        return;
-
-    }
-    #endregion
 }

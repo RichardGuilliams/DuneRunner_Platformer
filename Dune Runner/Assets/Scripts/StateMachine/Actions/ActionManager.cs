@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ActionManager : MonoBehaviour
 {
+    public List<Action> actions;
     public StandAction stand;
     public WalkAction walk;
     public RunAction run;

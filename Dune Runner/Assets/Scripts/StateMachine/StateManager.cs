@@ -7,7 +7,8 @@ public class StateManager : MonoBehaviour
     #region States
     [HideInInspector]
     public string stateHandlerName;
-    public ArrayList states;
+    [SerializeField]
+    public List<StateHandler> states;
     public StandState standing;
     public WalkState walking;
     public RunState running;
@@ -34,13 +35,7 @@ public class StateManager : MonoBehaviour
 
     public void CreateStateList()
     {
-        states.Add(standing);
-        states.Add(walking);
-        states.Add(running);
-        states.Add(jumping);
-        states.Add(climbing);
-        states.Add(hurt);
-        states.Add(exhausted);
+
     }
     public void RunCurrentState(PlayerController player)
     {

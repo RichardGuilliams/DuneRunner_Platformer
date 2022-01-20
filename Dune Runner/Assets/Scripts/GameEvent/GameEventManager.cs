@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using UnityEngine;
 
-namespace Assets.Scripts.GameEventManager
+
+class GameEventManager : MonoBehaviour
 {
-    class GameEventManager
-    {
-    }
+    public GameEvent gameEvent;
 }
+

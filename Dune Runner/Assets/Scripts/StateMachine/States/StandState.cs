@@ -6,10 +6,8 @@ public class StandState : StateHandler
 {
     #region StateAction
     public StandAction stand;
-    #endregion
 
-    #region Handle State
-    public void DoState(PlayerController player)
+    public override void DoState(PlayerController player)
     {
         if (player.input.IsAttemptingWalk())
         {
