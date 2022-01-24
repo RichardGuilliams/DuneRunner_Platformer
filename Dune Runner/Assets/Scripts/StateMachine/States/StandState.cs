@@ -6,28 +6,24 @@ public class StandState : StateHandler
 {
     #region StateAction
     public StandAction stand;
-
     public override void DoState(PlayerController player)
     {
+        Debug.Log("We are in stand state");
         if (player.input.IsAttemptingWalk())
         {
-            player.stateManager.playerState.currentState = player.stateManager.playerState.walking;
+            player.stateManager.ChangeState("Walk");
         }
         else if (player.input.IsAttemptingRun())
         {
-            player.stateManager.playerState.currentState = player.stateManager.playerState.running;
+            player.stateManager.ChangeState("Run");
         }
         else if (player.input.IsAttemptingJump())
         {
-            player.stateManager.playerState.currentState = player.stateManager.playerState.jumping;
+            player.stateManager.ChangeState("Jump");
         }
         else if (player.input.IsAttemptingClimb())
         {
-            player.stateManager.playerState.currentState = player.stateManager.playerState.climbing;
-        }
-        else
-        {
-            player.stateManager.playerState.currentState = player.stateManager.playerState.standing;
+            player.stateManager.ChangeState("Climb");
         }
     }
     #endregion

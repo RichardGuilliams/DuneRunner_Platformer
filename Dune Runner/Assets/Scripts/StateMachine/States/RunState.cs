@@ -10,22 +10,23 @@ public class RunState : StateHandler
 
     public override void DoState(PlayerController player)
     {
-        switch (subState)
+        Debug.Log("We are in run state");
+        switch (currentState)
         {
-            case SubState.Run:
-                Run(player);
+            case "ActionRun":
+                action.StartAction(player);
                 player.stateManager.playerState.currentState = player.stateManager.playerState.running;
                 break;
 
-            case SubState.Jump:
+            case "ActionJump":
                 player.stateManager.playerState.currentState = player.stateManager.playerState.jumping;
                 break;
 
-            case SubState.Climb:
+            case "ActionClimb":
                 player.stateManager.playerState.currentState = player.stateManager.playerState.climbing;
                 break;
 
-            case SubState.Walk:
+            case "ActionWalk":
                 player.stateManager.playerState.currentState = player.stateManager.playerState.walking;
                 break;
         }

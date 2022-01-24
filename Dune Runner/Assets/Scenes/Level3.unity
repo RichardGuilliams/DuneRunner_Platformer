@@ -410,11 +410,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 273637beb8a1f844082224753da00e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 
   subStates: []
   actionName: Standing
+  ascendAction: AscendAction
+  descendAction: DescendAction
+  startAction: StartAction
+  maintainAction: MaintainAction
+  endAction: EndAction
+  processAction: ProcessAction
   speed: 0
-  cost: 0
-  restingBonus: 4
+  startcost: 0
+  endCost: 0
 --- !u!114 &13961507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -427,6 +434,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d6fd88230caf340a52789bec0da1d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  action: {fileID: 13961506}
+  stateName: Stand
+  states: []
+  currentState: 
+  stateActive: 1
   stand: {fileID: 13961506}
 --- !u!1 &42954006
 GameObject:
@@ -1089,13 +1101,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6301cd0b03ee01543b94b63f5b264941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 
   subStates: []
   actionName: Jumping
+  ascendAction: AscendAction
+  descendAction: DescendAction
+  startAction: StartAction
+  maintainAction: MaintainAction
+  endAction: EndAction
+  processAction: ProcessAction
   speed: 15
-  cost: 4
-  gravityScale: 0.05
-  currentYPosition: 0
-  lastYPostion: 0
+  startcost: 0
+  endCost: 0
 --- !u!114 &245566111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1108,18 +1125,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 810c6082a511e03438d999cb5ecab020, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  action: {fileID: 245566110}
+  stateName: Jump
+  states: []
+  currentState: 
+  stateActive: 0
   jump: {fileID: 245566110}
-  none: 0
-  ropeJump: 1
-  jumping: 2
-  jumped: 3
-  falling: 4
-  jumpComplete: 5
-  climbing: 6
-  running: 7
-  walking: 8
-  standing: 0
-  subState: 0
 --- !u!4 &249238289 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1057363065345950408, guid: bab218ddc5761814ebc441c154187840, type: 3}
@@ -1819,6 +1830,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e85c91fcf00355643be08f8c6a0e88a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  action: {fileID: 0}
+  stateName: 
+  states: []
+  currentState: 
+  stateActive: 0
 --- !u!1001 &544827524
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2129,10 +2145,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5baaf937ebaf5434da9b5fda926fc514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 
   subStates: []
   actionName: Walking
+  ascendAction: AscendAction
+  descendAction: DescendAction
+  startAction: StartAction
+  maintainAction: MaintainAction
+  endAction: EndAction
+  processAction: ProcessAction
   speed: 6
-  cost: 0
+  startcost: 0
+  endCost: 0
 --- !u!114 &603547626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2145,6 +2169,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9effb0bbf5f06f84a8f1fc1b58ef3576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  action: {fileID: 603547625}
+  stateName: Walk
+  states: []
+  currentState: 
+  stateActive: 0
   walk: {fileID: 603547625}
 --- !u!1 &632738697
 GameObject:
@@ -3619,6 +3648,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb0ee4962b978fd45b2ea650c1abb699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  action: {fileID: 0}
+  stateName: Hurt
+  states: []
+  currentState: 
+  stateActive: 0
 --- !u!1 &1229676726
 GameObject:
   m_ObjectHideFlags: 0
@@ -4094,10 +4128,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db6ebab6bc964c14ba167330a67aa811, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 
   subStates: []
   actionName: Running
+  ascendAction: AscendAction
+  descendAction: DescendAction
+  startAction: StartAction
+  maintainAction: MaintainAction
+  endAction: EndAction
+  processAction: ProcessAction
   speed: 12
-  cost: 3
+  startcost: 0
+  endCost: 0
 --- !u!114 &1429409179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4110,8 +4152,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed3acea837cde424c884529ccfbc5f25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  action: {fileID: 1429409178}
+  stateName: Run
+  states: []
+  currentState: 
+  stateActive: 0
   run: {fileID: 1429409178}
-  subState: 0
 --- !u!1 &1451663782
 GameObject:
   m_ObjectHideFlags: 0
@@ -4156,10 +4202,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab52a68c04db525459a6b4940d73f027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 
   subStates: []
   actionName: Climbing
+  ascendAction: AscendAction
+  descendAction: DescendAction
+  startAction: StartAction
+  maintainAction: MaintainAction
+  endAction: EndAction
+  processAction: ProcessAction
   speed: 4
-  cost: 3
+  startcost: 0
+  endCost: 0
   hangingCost: 0.5
   wallJumpCost: 4
   canClimb: 0
@@ -4177,13 +4231,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea9636206a463694b907be3f95129323, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  action: {fileID: 1451663784}
+  stateName: Climb
+  states: []
+  currentState: 
+  stateActive: 0
   climb: {fileID: 1451663784}
-  climbing: 0
-  hanging: 1
-  OnLedge: 3
-  jumping: 4
-  wallJump: 5
-  subState: 0
 --- !u!1 &1480924132
 GameObject:
   m_ObjectHideFlags: 0
@@ -4613,14 +4666,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateHandlerName: 
-  states: []
-  standing: {fileID: 13961507}
-  walking: {fileID: 603547626}
-  running: {fileID: 1429409179}
-  jumping: {fileID: 245566111}
-  climbing: {fileID: 1451663785}
-  hurt: {fileID: 1228811766}
-  exhausted: {fileID: 519665599}
+  states:
+  - {fileID: 13961507}
+  - {fileID: 603547626}
+  - {fileID: 1429409179}
+  - {fileID: 245566111}
+  - {fileID: 1451663785}
+  - {fileID: 1228811766}
+  - {fileID: 519665599}
   playerState: {fileID: 1341282883}
 --- !u!1 &1548254346
 GameObject:
@@ -7909,7 +7962,6 @@ GameObject:
   - component: {fileID: 7442843371947064623}
   - component: {fileID: 7442843371947064622}
   - component: {fileID: 7442843371947064632}
-  - component: {fileID: 7442843371947064621}
   m_Layer: 0
   m_Name: PlayerObject
   m_TagString: Player
@@ -8032,18 +8084,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7442843371947064621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7442843371947064615}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23dd0c3443a18ba418ae633f314ea93a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7442843371947064622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8096,8 +8136,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08e979d73c76bf34dbda81ab6148fe36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gravityScale: 0
   direction: {x: 0, y: 0, z: 0}
   canChangeDirection: 0
+  currentYPosition: 0
+  lastYPostion: 0
   speed: 0
   velocity: {x: 0, y: 0}
 --- !u!1 &7449536867151376091

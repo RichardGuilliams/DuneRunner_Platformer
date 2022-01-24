@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class JumpAction : Action
 {
+    public float fallSpeed;
     public override void ProcessAction(PlayerController player)
     {
         StartAction(player);
-        player.rb.AddForce(Vector2.up * player.stateManager.jumping.jump.speed, ForceMode2D.Impulse);
+        player.rb.AddForce(Vector2.up * speed, ForceMode2D.Impulse);
         currentState = ascendAction;
     }
 
@@ -19,51 +20,24 @@ public class JumpAction : Action
         player.rb.velocity = player.movement.velocity;
     }
 
-    public override void EndAction(PlayerController player)
+    public override void AscendAction(PlayerController player)
     {
-        player.movement.velocity.x = player.rb.velocity.x;
-        if (player.stateManager.CanClimb(player))
-        {
-            currentState = endAction;
-        }
-        if (player.rays.OnGround())
-        {
-            player.rb.AddForce(Vector2.right * player.movement.velocity.x);
-            currentState = endAction;
-        }
-        player.rb.AddForce(Vector2.up * player.stateManager.jumping.jump.speed * -player.movement.gravityScale, ForceMode2D.Impulse); throw new System.NotImplementedException();
+        MaintainAction(player);
+
     }
 
     public override void CheckAction(PlayerController player)
     {
         if (player.stateManager.CanClimb(player))
         {
-            currentState = endAction;
+            player.stateManager.ChangeState("Climb");
+            currentState = ascendAction;
         }
         if (!player.input.JumpKeyHeld() || player.movement.lastYPostion > player.movement.currentYPosition)
         {
+            Debug.Log("Fall");
             currentState = descendAction;
         }
-    }
-
-    public override bool CanPerformAction(PlayerController player)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override bool IsPerformingAction(PlayerController player)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override bool TryingPerformAction(PlayerController player)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void AscendAction(PlayerController player)
-    {
-        throw new System.NotImplementedException();
     }
 
     public override void MaintainAction(PlayerController player)
@@ -76,6 +50,21 @@ public class JumpAction : Action
 
     public override void DescendAction(PlayerController player)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("trying to fall");
+        player.movement.velocity.x = player.rb.velocity.x;
+        if (player.stateManager.CanClimb(player))
+        {
+            currentState = processAction;
+            player.stateManager.ChangeState("Climb");
+        }
+        if (player.rays.OnGround())
+        {
+            Debug.Log("Trying To Stand");
+            currentState = processAction;
+            player.rb.AddForce(Vector2.right * player.movement.velocity.x);
+            player.stateManager.ChangeState("Stand");
+        }
+        player.movement.gravityScale = fallSpeed;
+        player.rb.AddForce(Vector2.up * speed * -player.movement.gravityScale, ForceMode2D.Impulse);
     }
 }

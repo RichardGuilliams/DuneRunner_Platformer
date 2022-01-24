@@ -21,11 +21,10 @@ public abstract class Action : MonoBehaviour
     public float speed;
     public float startcost;
     public float endCost;
+    public bool canDoAction = true;
 
-
-    public virtual bool CanPerformAction(PlayerController player) { return true; }
-    public virtual bool IsPerformingAction(PlayerController player) { return true; }
-    public virtual bool TryingPerformAction(PlayerController player) { return true; }
+    public virtual bool IsPerformingAction(PlayerController player) { return false; }
+    public virtual bool TryingPerformAction(PlayerController player) { return false; }
 
 
     public virtual void ProcessAction(PlayerController player) { }

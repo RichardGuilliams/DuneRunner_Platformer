@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public Vector3 lockedPosition;
 
-    private void Awake()
+    public void Awake()
     {
         instance = this;
     }
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
     public void OnEnable()
     {
     }
-    void Start()
+    public void Start()
     {
         physics.gravityScale = rb.gravityScale;
         rays = rays.GetComponent<RaycastManager_6>();
@@ -58,20 +58,20 @@ public class PlayerController : MonoBehaviour
         stateManager = stateManager.GetComponent<StateManager>();
     }
 
-    public void checkSpeed()
+    public void CheckSpeed()
     {
-        if (input.RunKeyHeld()) movement.speed = stateManager.running.run.speed;
-        else movement.speed = stateManager.walking.walk.speed;
+        if (input.RunKeyHeld()) movement.speed = stateManager.GetAction("Run").speed;
+        else movement.speed = stateManager.GetAction("Walk").speed;
     }
 
-    void FixedUpdate()
+    public void FixedUpdate()
     {
         input.checkInput();
         stateManager.RunCurrentState(this);
         movement.UpdatePosition();
         if (stateManager.CanMove())
         {
-            checkSpeed();
+            CheckSpeed();
             movement.Move(rb);
         }
         movement.FlipSprite(transform, input.LeftInput(), input.RightInput());

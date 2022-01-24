@@ -6,7 +6,7 @@ public class WalkAction : Action
 {
     public override void ProcessAction(PlayerController player)
     {
-        player.movement.SetSpeed(player.stateManager.walking.walk.speed);
+        player.movement.SetSpeed(speed);
         if (player.stateManager.CanMove())
         {
             player.movement.Move(player.rb);

@@ -9,77 +9,44 @@ public class StateManager : MonoBehaviour
     public string stateHandlerName;
     [SerializeField]
     public List<StateHandler> states;
-    public StandState standing;
-    public WalkState walking;
-    public RunState running;
-    public JumpState jumping;
-    public ClimbState climbing;
-    public HurtState hurt;
-    public ExhaustedState exhausted;
     public PlayerStates playerState;
 
     #endregion
 
     public void Start()
     {
-        standing = standing.GetComponent<StandState>();
-        walking = walking.GetComponent<WalkState>();
-        running = running.GetComponent<RunState>();
-        jumping = jumping.GetComponent<JumpState>();
-        climbing = climbing.GetComponent<ClimbState>();
-        hurt = hurt.GetComponent<HurtState>();
-        exhausted = exhausted.GetComponent<ExhaustedState>();
+        stateHandlerName = "Stand";
+        ChangeState("Stand");
         playerState = playerState.GetComponent<PlayerStates>();
-        CreateStateList();
     }
 
-    public void CreateStateList()
+    public StateHandler CurrentState()
     {
-
+        return states.Find(x => x.stateName == stateHandlerName);
     }
+
+    public StateHandler GetState(string name)
+    {
+        return states.Find(x => x.stateName == name);
+    }
+
+    public Action GetAction(string name)
+    {
+        return states.Find(x => x.stateName == name).action;
+    }
+
+    public void ChangeState(string name)
+    {
+        states.Find(x => x.stateName == stateHandlerName).stateActive = false;
+        states.Find(x => x.stateName == name).stateActive = true;
+        stateHandlerName = name;
+    }
+
     public void RunCurrentState(PlayerController player)
     {
-        switch (playerState.currentState)
-        {
-
-            case PlayerStates.State.Standing:
-                standing.DoState(player);
-                break;
-
-            case PlayerStates.State.Walking:
-                player.movement.canChangeDirection = true;
-                walking.DoState(player);
-                break;
-
-            case PlayerStates.State.Running:
-                player.movement.canChangeDirection = true;
-                running.DoState(player);
-                break;
-
-            case PlayerStates.State.Jumping:
-                player.movement.canChangeDirection = true;
-                jumping.DoState(player);
-                break;
-
-            case PlayerStates.State.Climbing:
-                player.movement.canChangeDirection = false;
-                climbing.DoState(player);
-                break;
-
-            case PlayerStates.State.Hurt:
-                hurt.DoState(player);
-                break;
-
-            case PlayerStates.State.Exhausted:
-                exhausted.DoState(player);
-                break;
-
-            default:
-                playerState.currentState = PlayerStates.State.Waiting;
-                standing.DoState(player);
-                break;
-        }
+        states.Find(x => x.stateActive == true).DoState(player);
     }
+
     #region State Booleans
     /// <summary>
     /// Checks if we are not in the climbing state. If false we lock movement in the Move() function.
@@ -95,9 +62,9 @@ public class StateManager : MonoBehaviour
     /// Checks if Player is currently in the Jumping state of the StateHandler.
     /// </summary>
     /// <returns>boolean</returns>
-    public bool JumpState()
+    public bool InJumpState()
     {
-        if (stateHandlerName == "jumping")
+        if (stateHandlerName == "Jump")
         {
             return true;
         }
@@ -108,7 +75,7 @@ public class StateManager : MonoBehaviour
     /// Checks if Player is currently in the Running state of the StateHandler.
     /// </summary>
     /// <returns>boolean</returns>
-    public bool RunState()
+    public bool InRunState()
     {
         if (playerState.currentState == playerState.running)
         {
@@ -201,7 +168,7 @@ public class StateManager : MonoBehaviour
     /// <returns>boolean</returns>
     public bool CanRun()
     {
-        if (!JumpState() && !ClimbState() && !ExhaustedState() && !HurtState()) return true;
+        if (!InJumpState() && !ClimbState() && !ExhaustedState() && !HurtState()) return true;
         return false;
     }
     #endregion

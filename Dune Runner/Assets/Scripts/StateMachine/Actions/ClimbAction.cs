@@ -24,36 +24,43 @@ public class ClimbAction : Action
 
     public override void ProcessAction(PlayerController player)
     {
+        Debug.Log("ProcessAction");
         if (!player.rays.OnWall())
         {
             // Changing subState of the jump state to falling so player falls rather than jumps upon entering the state
-            player.stateManager.jumping.subState = player.stateManager.jumping.falling;
-            player.stateManager.playerState.currentState = player.stateManager.playerState.jumping;
+            player.stateManager.GetState("Jump").currentState = endAction;
+            player.stateManager.ChangeState("Jump");
         }
         if (player.rays.OnLedge())
         {
-            player.stateManager.climbing.subState = player.stateManager.climbing.hanging;
-            currentState = player.stateManager.stateHandlerName;
+            player.stateManager.GetState("Climb").currentState = maintainAction;
+            player.stateManager.ChangeState("Hang");
             return;
         }
         if (player.input.JumpKeyHeld())
         {
             player.rb.gravityScale = player.physics.gravityScale;
-            player.stateManager.climbing.subState = player.stateManager.climbing.jumping;
+            player.stateManager.GetState("Climb").currentState = endAction;
             return;
         }
         if (!IsPerformingAction(player))
         {
-            player.stateManager.climbing.subState = player.stateManager.climbing.hanging;
+            player.stateManager.GetState("Climb").currentState = maintainAction;
             return;
         }
         if (IsPerformingAction(player) && player.rays.ChestCollision())
-        {    
-            player.movement.velocity.y = player.stateManager.climbing.climb.speed;
-            player.rb.velocity = player.movement.velocity;
-            player.stateManager.climbing.subState = player.stateManager.climbing.climbing;
+        {
+            StartAction(player);
             return;
         }
+    }
+
+    public override void StartAction(PlayerController player)
+    {
+        Debug.Log("StartAction");
+        player.movement.velocity.y = speed;
+        player.rb.velocity = player.movement.velocity;
+        currentState = maintainAction;
     }
 
     public override void MaintainAction(PlayerController player)
@@ -61,14 +68,13 @@ public class ClimbAction : Action
         player.rb.gravityScale = player.physics.gravityScale;
         if (!player.rays.OnWall())
         {
-            player.stateManager.jumping.subState = JumpState.SubState.Falling;
-            player.stateManager.climbing.subState = player.stateManager.climbing.jumping;
+            player.stateManager.GetState("Jump").currentState = player.stateManager.GetAction("Jump").descendAction;
+            player.stateManager.GetState("Climb").currentState = player.stateManager.GetAction("Climb").ascendAction;
             return;
         }
         if (player.input.IsAttemptingClimb() && !player.rays.OnLedge() && player.rays.OnWall())
         {
-            // perfect example of why we need to seperate states, substates, and actions with better naming. To Avoid duplicate names.
-            currentState = "climbing";
+            currentState = startAction;
             return;
         }
         if (player.input.JumpKeyHeld())

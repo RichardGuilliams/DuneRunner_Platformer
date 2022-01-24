@@ -10,33 +10,32 @@ public class WalkState : StateHandler
     {
         if (player.input.IsAttemptingJump()) 
         {
-            player.stateManager.jumping.subState = JumpState.SubState.Jumping;
-            player.stateManager.playerState.currentState = player.stateManager.playerState.jumping;
+            player.stateManager.ChangeState("Jump");
             return;
         } 
         if (!player.rays.OnGround())
         {
-            player.stateManager.jumping.subState = JumpState.SubState.Falling;
-            player.stateManager.playerState.currentState = player.stateManager.playerState.jumping;
+            player.stateManager.GetState("Jump").currentState = action.descendAction;
+            player.stateManager.ChangeState("Jump");
             return;
         }
         if (player.input.IsAttemptingClimb()) 
         {
-            player.stateManager.playerState.currentState = player.stateManager.playerState.climbing;
+            player.stateManager.ChangeState("Climb");
             return;
         }
         if (player.input.IsAttemptingRun()) 
         {
-            player.stateManager.playerState.currentState = player.stateManager.playerState.running;
+            player.stateManager.ChangeState("Run");
             return;
         }            
         if (player.input.IsAttemptingWalk()) 
         {
-            walk.ProcessWalk(player);
-            player.stateManager.playerState.currentState = player.stateManager.playerState.walking;
+            player.stateManager.ChangeState("Walk");
+            walk.ProcessAction(player);
             return;
         }
-        player.stateManager.playerState.currentState = player.stateManager.playerState.standing;
+        player.stateManager.ChangeState("Stand");
     }
     #endregion
 }

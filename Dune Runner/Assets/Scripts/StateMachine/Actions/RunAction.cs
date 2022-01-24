@@ -8,22 +8,22 @@ public class RunAction : Action
     {
         if (player.input.IsAttemptingJump() && player.rays.OnGround())
         {
-            player.stateManager.stateHandlerName = currentState = "Jump";
+            player.stateManager.ChangeState("Jump");
             return;
         }
         if (player.input.IsAttemptingClimb())
         {
-            player.stateManager.stateHandlerName = currentState = "Climb";
+            player.stateManager.ChangeState("Climb");
             return;
         }
         // Checks if player is moving but not holding the runKey, if true we change to Walking State
         else if (player.input.IsAttemptingWalk())
         {
-            player.movement.SetSpeed(player.stateManager.walking.walk.speed);
-            player.stateManager.stateHandlerName = currentState = "Walk";
+            player.movement.SetSpeed(player.stateManager.GetAction("Walk").speed);
+            player.stateManager.ChangeState("Walk");
             return;
         }
-        player.movement.SetSpeed(player.stateManager.running.run.speed);
+        player.movement.SetSpeed(speed);
         player.movement.Move(player.rb);
         return;
     }
