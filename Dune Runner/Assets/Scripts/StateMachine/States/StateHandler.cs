@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class StateHandler : MonoBehaviour
+public class StateHandler : MonoBehaviour
 {
     public Action action;
+    [HideInInspector]
     public string stateName;
-    public List<string> states;
-    public string currentState;
     public bool stateActive = false;
-    public abstract void DoState(PlayerController player);
+
+    public void Start()
+    {
+        stateName = action.actionName;
+    }
+    public void DoState(PlayerController player) {
+        action.ProcessAction(player);
+    }
 }

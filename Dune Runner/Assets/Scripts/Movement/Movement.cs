@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    [HideInInspector]
     public float gravityScale;
 
     [HideInInspector]

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class Action : MonoBehaviour
 {
-    public string currentState;
+    public string currentState = "ProcessAction";
     public List<string> subStates;
     public string actionName;
     [HideInInspector]
@@ -26,7 +26,7 @@ public abstract class Action : MonoBehaviour
     public virtual bool IsPerformingAction(PlayerController player) { return false; }
     public virtual bool TryingPerformAction(PlayerController player) { return false; }
 
-
+    public virtual void ResetState() { currentState = processAction; }
     public virtual void ProcessAction(PlayerController player) { }
     public virtual void CheckAction(PlayerController player) { }
     public virtual void StartAction(PlayerController player) { }
@@ -34,5 +34,8 @@ public abstract class Action : MonoBehaviour
     public virtual void MaintainAction(PlayerController player) { }
     public virtual void DescendAction(PlayerController player) { }
     public virtual void EndAction(PlayerController player) { }
+
+    public virtual void ChangeActionState(string newState) { }
+    public virtual void InvokeActionMethod(PlayerController player, string methodName) { this.GetType().GetMethod(methodName).Invoke(this, new object[] { player }); }
 }
 

@@ -68,13 +68,12 @@ public class PlayerController : MonoBehaviour
     {
         input.checkInput();
         stateManager.RunCurrentState(this);
-        movement.UpdatePosition();
         if (stateManager.CanMove())
         {
             CheckSpeed();
             movement.Move(rb);
+            movement.FlipSprite(transform, input.LeftInput(), input.RightInput());
         }
-        movement.FlipSprite(transform, input.LeftInput(), input.RightInput());
         movement.velocity = rb.velocity;
         stats.stm.StatRegen();
     }

@@ -7,9 +7,9 @@ public class StateManager : MonoBehaviour
     #region States
     [HideInInspector]
     public string stateHandlerName;
+    public int currentStateID;
     [SerializeField]
     public List<StateHandler> states;
-    public PlayerStates playerState;
 
     #endregion
 
@@ -17,7 +17,6 @@ public class StateManager : MonoBehaviour
     {
         stateHandlerName = "Stand";
         ChangeState("Stand");
-        playerState = playerState.GetComponent<PlayerStates>();
     }
 
     public StateHandler CurrentState()
@@ -54,7 +53,13 @@ public class StateManager : MonoBehaviour
     /// <returns>boolean</returns>
     public bool CanMove()
     {
-        if (playerState.currentState != PlayerStates.State.Climbing) return true;
+        if (stateHandlerName != "Climb") return true;
+        return false;
+    }
+
+    public bool TryingToClimb(PlayerController player)
+    {
+        if (player.rays.OnWall() && player.input.ClimbKeyHeld()) return true;
         return false;
     }
 
@@ -72,103 +77,12 @@ public class StateManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Checks if Player is currently in the Running state of the StateHandler.
-    /// </summary>
-    /// <returns>boolean</returns>
-    public bool InRunState()
-    {
-        if (playerState.currentState == playerState.running)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    /// <summary>
-    /// Checks if Player is currently in the Standing state of the StateHandler.
-    /// </summary>
-    /// <returns>boolean</returns>
-    public bool StandState()
-    {
-        if (playerState.currentState == playerState.standing)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    /// <summary>
-    /// Checks if Player is currently in the Walking state of the StateHandler.
-    /// </summary>
-    /// <returns>boolean</returns>
-    public bool WalkState()
-    {
-        if (playerState.currentState == playerState.walking)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    /// <summary>
-    /// Checks if Player is currently in the Climbing state of the StateHandler.
-    /// </summary>
-    /// <returns>boolean</returns>
-    public bool ClimbState()
-    {
-        if (playerState.currentState == playerState.climbing)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    /// <summary>
-    /// Checks if Player is currently in the Can Climb state of the StateHandler.
-    /// </summary>
-    /// <returns>boolean</returns>
-    public bool CanClimb(PlayerController player)
-    {
-        if (player.rays.OnWall() && player.input.ClimbKeyHeld())
-        {
-            return true;
-        }
-        return false;
-    }
-
-    /// <summary>
-    /// Checks if Player is currently in the Hurt state of the StateHandler.
-    /// </summary>
-    /// <returns>boolean</returns>
-    public bool HurtState()
-    {
-        if (playerState.currentState == playerState.hurt)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    /// <summary>
-    /// Checks if Player is currently in the Exhausted state of the StateHandler.
-    /// </summary>
-    /// <returns>boolean</returns>
-    public bool ExhaustedState()
-    {
-        if (playerState.currentState == playerState.exhausted)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    /// <summary>
     /// Checks if we are not the Jumping, Climbing, Exhausted and Hurt state. If true the player is able to enter the Running state.
     /// </summary>
     /// <returns>boolean</returns>
     public bool CanRun()
     {
-        if (!InJumpState() && !ClimbState() && !ExhaustedState() && !HurtState()) return true;
+        if (!InJumpState()) return true;
         return false;
     }
     #endregion

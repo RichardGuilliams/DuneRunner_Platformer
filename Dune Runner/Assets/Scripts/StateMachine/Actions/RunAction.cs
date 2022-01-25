@@ -11,7 +11,7 @@ public class RunAction : Action
             player.stateManager.ChangeState("Jump");
             return;
         }
-        if (player.input.IsAttemptingClimb())
+        if (player.stateManager.TryingToClimb(player))
         {
             player.stateManager.ChangeState("Climb");
             return;

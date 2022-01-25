@@ -15,7 +15,7 @@ public class ClimbAction : Action
 
     public override bool IsPerformingAction(PlayerController player)
     {
-        if (player.input.ClimbKeyHeld() && !player.stateManager.ExhaustedState())
+        if (player.input.ClimbKeyHeld())
         {
             return true;
         }
@@ -24,75 +24,50 @@ public class ClimbAction : Action
 
     public override void ProcessAction(PlayerController player)
     {
-        Debug.Log("ProcessAction");
         if (!player.rays.OnWall())
         {
-            // Changing subState of the jump state to falling so player falls rather than jumps upon entering the state
-            player.stateManager.GetState("Jump").currentState = endAction;
+            player.stateManager.GetAction("Jump").ChangeActionState("Falling");
             player.stateManager.ChangeState("Jump");
-        }
-        if (player.rays.OnLedge())
-        {
-            player.stateManager.GetState("Climb").currentState = maintainAction;
-            player.stateManager.ChangeState("Hang");
             return;
         }
         if (player.input.JumpKeyHeld())
         {
             player.rb.gravityScale = player.physics.gravityScale;
-            player.stateManager.GetState("Climb").currentState = endAction;
+            player.stateManager.GetState("Jump").action.currentState = processAction;
+            player.stateManager.ChangeState("Jump");
             return;
         }
-        if (!IsPerformingAction(player))
+        if (player.rays.OnLedge() || !IsPerformingAction(player))
         {
-            player.stateManager.GetState("Climb").currentState = maintainAction;
+            Hang(player);
             return;
         }
         if (IsPerformingAction(player) && player.rays.ChestCollision())
         {
-            StartAction(player);
+            Climb(player);
             return;
         }
     }
 
     public override void StartAction(PlayerController player)
     {
-        Debug.Log("StartAction");
         player.movement.velocity.y = speed;
         player.rb.velocity = player.movement.velocity;
         currentState = maintainAction;
     }
 
-    public override void MaintainAction(PlayerController player)
+    public void Climb(PlayerController player)
     {
-        player.rb.gravityScale = player.physics.gravityScale;
-        if (!player.rays.OnWall())
-        {
-            player.stateManager.GetState("Jump").currentState = player.stateManager.GetAction("Jump").descendAction;
-            player.stateManager.GetState("Climb").currentState = player.stateManager.GetAction("Climb").ascendAction;
-            return;
-        }
-        if (player.input.IsAttemptingClimb() && !player.rays.OnLedge() && player.rays.OnWall())
-        {
-            currentState = startAction;
-            return;
-        }
-        if (player.input.JumpKeyHeld())
-        {
-            player.rb.gravityScale = player.physics.gravityScale;
-            currentState = "jumping";
-            return;
-        }
+        player.movement.velocity.y = speed;
+        player.rb.velocity = player.movement.velocity;
+    }
+
+    public void Hang(PlayerController player)
+    {
         player.movement.velocity.y = 0;
         player.movement.velocity.x = 0;
         player.rb.velocity = player.movement.velocity;
         player.rb.gravityScale = 0;
-        return;
-    }
-
-    public override void DescendAction(PlayerController player)
-    {
-        currentState = "hanging";
         return;
     }
 

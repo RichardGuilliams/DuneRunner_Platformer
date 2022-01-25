@@ -375,8 +375,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 13961505}
-  - component: {fileID: 13961507}
   - component: {fileID: 13961506}
+  - component: {fileID: 13961507}
   m_Layer: 0
   m_Name: Standing
   m_TagString: Untagged
@@ -410,9 +410,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 273637beb8a1f844082224753da00e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 
+  currentState: ProcessAction
   subStates: []
-  actionName: Standing
+  actionName: Stand
   ascendAction: AscendAction
   descendAction: DescendAction
   startAction: StartAction
@@ -422,6 +422,7 @@ MonoBehaviour:
   speed: 0
   startcost: 0
   endCost: 0
+  canDoAction: 1
 --- !u!114 &13961507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -431,15 +432,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 13961504}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14d6fd88230caf340a52789bec0da1d6, type: 3}
+  m_Script: {fileID: 11500000, guid: 25ccb89abdd58aa4c895e95171a746a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   action: {fileID: 13961506}
-  stateName: Stand
-  states: []
-  currentState: 
+  stateName: 
   stateActive: 1
-  stand: {fileID: 13961506}
 --- !u!1 &42954006
 GameObject:
   m_ObjectHideFlags: 0
@@ -1066,8 +1064,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 245566109}
-  - component: {fileID: 245566111}
   - component: {fileID: 245566110}
+  - component: {fileID: 245566111}
   m_Layer: 0
   m_Name: Jumping
   m_TagString: Untagged
@@ -1101,9 +1099,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6301cd0b03ee01543b94b63f5b264941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 
+  currentState: ProcessAction
   subStates: []
-  actionName: Jumping
+  actionName: Jump
   ascendAction: AscendAction
   descendAction: DescendAction
   startAction: StartAction
@@ -1113,6 +1111,8 @@ MonoBehaviour:
   speed: 15
   startcost: 0
   endCost: 0
+  canDoAction: 1
+  fallSpeed: 0.05
 --- !u!114 &245566111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1122,15 +1122,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 245566108}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 810c6082a511e03438d999cb5ecab020, type: 3}
+  m_Script: {fileID: 11500000, guid: 25ccb89abdd58aa4c895e95171a746a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   action: {fileID: 245566110}
-  stateName: Jump
-  states: []
-  currentState: 
+  stateName: 
   stateActive: 0
-  jump: {fileID: 245566110}
 --- !u!4 &249238289 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1057363065345950408, guid: bab218ddc5761814ebc441c154187840, type: 3}
@@ -1830,11 +1827,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e85c91fcf00355643be08f8c6a0e88a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  action: {fileID: 0}
-  stateName: 
-  states: []
-  currentState: 
-  stateActive: 0
 --- !u!1001 &544827524
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2110,8 +2102,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 603547624}
-  - component: {fileID: 603547626}
   - component: {fileID: 603547625}
+  - component: {fileID: 603547626}
   m_Layer: 0
   m_Name: Walking
   m_TagString: Untagged
@@ -2145,9 +2137,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5baaf937ebaf5434da9b5fda926fc514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 
+  currentState: ProcessAction
   subStates: []
-  actionName: Walking
+  actionName: Walk
   ascendAction: AscendAction
   descendAction: DescendAction
   startAction: StartAction
@@ -2157,6 +2149,7 @@ MonoBehaviour:
   speed: 6
   startcost: 0
   endCost: 0
+  canDoAction: 1
 --- !u!114 &603547626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2166,15 +2159,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 603547623}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9effb0bbf5f06f84a8f1fc1b58ef3576, type: 3}
+  m_Script: {fileID: 11500000, guid: 25ccb89abdd58aa4c895e95171a746a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   action: {fileID: 603547625}
-  stateName: Walk
-  states: []
-  currentState: 
+  stateName: 
   stateActive: 0
-  walk: {fileID: 603547625}
 --- !u!1 &632738697
 GameObject:
   m_ObjectHideFlags: 0
@@ -3648,11 +3638,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb0ee4962b978fd45b2ea650c1abb699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  action: {fileID: 0}
-  stateName: Hurt
-  states: []
-  currentState: 
-  stateActive: 0
 --- !u!1 &1229676726
 GameObject:
   m_ObjectHideFlags: 0
@@ -4093,8 +4078,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1429409177}
-  - component: {fileID: 1429409179}
   - component: {fileID: 1429409178}
+  - component: {fileID: 1429409179}
   m_Layer: 0
   m_Name: Running
   m_TagString: Untagged
@@ -4128,9 +4113,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db6ebab6bc964c14ba167330a67aa811, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 
+  currentState: ProcessAction
   subStates: []
-  actionName: Running
+  actionName: Run
   ascendAction: AscendAction
   descendAction: DescendAction
   startAction: StartAction
@@ -4140,6 +4125,7 @@ MonoBehaviour:
   speed: 12
   startcost: 0
   endCost: 0
+  canDoAction: 1
 --- !u!114 &1429409179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4149,15 +4135,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1429409176}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed3acea837cde424c884529ccfbc5f25, type: 3}
+  m_Script: {fileID: 11500000, guid: 25ccb89abdd58aa4c895e95171a746a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   action: {fileID: 1429409178}
-  stateName: Run
-  states: []
-  currentState: 
+  stateName: 
   stateActive: 0
-  run: {fileID: 1429409178}
 --- !u!1 &1451663782
 GameObject:
   m_ObjectHideFlags: 0
@@ -4167,8 +4150,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1451663783}
-  - component: {fileID: 1451663785}
   - component: {fileID: 1451663784}
+  - component: {fileID: 1451663785}
   m_Layer: 0
   m_Name: Climbing
   m_TagString: Untagged
@@ -4202,9 +4185,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab52a68c04db525459a6b4940d73f027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 
+  currentState: ProcessAction
   subStates: []
-  actionName: Climbing
+  actionName: Climb
   ascendAction: AscendAction
   descendAction: DescendAction
   startAction: StartAction
@@ -4214,6 +4197,7 @@ MonoBehaviour:
   speed: 4
   startcost: 0
   endCost: 0
+  canDoAction: 1
   hangingCost: 0.5
   wallJumpCost: 4
   canClimb: 0
@@ -4228,15 +4212,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1451663782}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea9636206a463694b907be3f95129323, type: 3}
+  m_Script: {fileID: 11500000, guid: 25ccb89abdd58aa4c895e95171a746a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   action: {fileID: 1451663784}
-  stateName: Climb
-  states: []
-  currentState: 
+  stateName: 
   stateActive: 0
-  climb: {fileID: 1451663784}
 --- !u!1 &1480924132
 GameObject:
   m_ObjectHideFlags: 0
@@ -4666,15 +4647,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateHandlerName: 
+  currentStateID: 0
   states:
   - {fileID: 13961507}
   - {fileID: 603547626}
   - {fileID: 1429409179}
   - {fileID: 245566111}
   - {fileID: 1451663785}
-  - {fileID: 1228811766}
-  - {fileID: 519665599}
-  playerState: {fileID: 1341282883}
 --- !u!1 &1548254346
 GameObject:
   m_ObjectHideFlags: 0
@@ -8136,7 +8115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08e979d73c76bf34dbda81ab6148fe36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravityScale: 0
+  gravityScale: 0.02
   direction: {x: 0, y: 0, z: 0}
   canChangeDirection: 0
   currentYPosition: 0

@@ -4,12 +4,35 @@ using UnityEngine;
 
 public class JumpAction : Action
 {
+
+    private enum ActionStates
+    {
+        Jump,
+        InAir,
+        Falling
+    }
+    private ActionStates state = ActionStates.Jump;
     public float fallSpeed;
+
+
+ 
     public override void ProcessAction(PlayerController player)
     {
-        StartAction(player);
-        player.rb.AddForce(Vector2.up * speed, ForceMode2D.Impulse);
-        currentState = ascendAction;
+        Debug.Log(state);
+        switch (state)
+        {
+            case ActionStates.Jump:
+                StartAction(player);
+                ChangeActionState("InAir"); return;
+
+            case ActionStates.InAir:
+                InAir(player);
+                return;
+
+            case ActionStates.Falling:
+                Fall(player);
+                return;
+        }
     }
 
     public override void StartAction(PlayerController player)
@@ -18,53 +41,66 @@ public class JumpAction : Action
         player.movement.currentYPosition = player.transform.position.y;
         player.movement.velocity.y = 0;
         player.rb.velocity = player.movement.velocity;
+        player.rb.AddForce(Vector2.up * speed, ForceMode2D.Impulse);
     }
 
-    public override void AscendAction(PlayerController player)
+    public void InAir(PlayerController player)
     {
-        MaintainAction(player);
-
-    }
-
-    public override void CheckAction(PlayerController player)
-    {
-        if (player.stateManager.CanClimb(player))
-        {
-            player.stateManager.ChangeState("Climb");
-            currentState = ascendAction;
-        }
-        if (!player.input.JumpKeyHeld() || player.movement.lastYPostion > player.movement.currentYPosition)
-        {
-            Debug.Log("Fall");
-            currentState = descendAction;
-        }
-    }
-
-    public override void MaintainAction(PlayerController player)
-    {
-        player.movement.ResetYPosition();
         player.movement.Move(player.rb);
+        player.movement.ResetYPosition();
         CheckAction(player);
         player.movement.UpdatePosition();
     }
 
-    public override void DescendAction(PlayerController player)
+    public void Fall(PlayerController player)
     {
-        Debug.Log("trying to fall");
         player.movement.velocity.x = player.rb.velocity.x;
-        if (player.stateManager.CanClimb(player))
-        {
-            currentState = processAction;
-            player.stateManager.ChangeState("Climb");
-        }
+        CheckAction(player);
         if (player.rays.OnGround())
         {
-            Debug.Log("Trying To Stand");
-            currentState = processAction;
             player.rb.AddForce(Vector2.right * player.movement.velocity.x);
+            ResetState();
             player.stateManager.ChangeState("Stand");
         }
         player.movement.gravityScale = fallSpeed;
         player.rb.AddForce(Vector2.up * speed * -player.movement.gravityScale, ForceMode2D.Impulse);
+    }
+
+    public override void CheckAction(PlayerController player)
+    {
+        if (player.stateManager.TryingToClimb(player))
+        {
+            ResetState();
+            player.stateManager.ChangeState("Climb");
+            return;
+        }
+        if (!player.input.JumpKeyHeld() || player.movement.lastYPostion > player.movement.currentYPosition)
+        {
+            ChangeActionState("Falling");
+            return;
+        }
+    }
+
+    public override void ChangeActionState(string newState)
+    {
+        switch (newState)
+        {
+            case "Jump":
+                state = ActionStates.Jump;
+                return;
+
+            case "InAir":
+                state = ActionStates.InAir;
+                return;
+
+            case "Falling":
+                state = ActionStates.Falling;
+                return;
+        }
+    }
+
+    public override void ResetState()
+    {
+        ChangeActionState("Jump");
     }
 }
