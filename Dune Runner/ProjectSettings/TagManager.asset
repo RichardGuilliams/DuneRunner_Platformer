@@ -8,6 +8,7 @@ TagManager:
   - LevelEnd
   - DeathZone
   - Collision
+  - Bones
   layers:
   - Default
   - TransparentFX

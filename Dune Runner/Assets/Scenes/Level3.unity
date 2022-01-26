@@ -1066,6 +1066,7 @@ GameObject:
   - component: {fileID: 245566109}
   - component: {fileID: 245566110}
   - component: {fileID: 245566111}
+  - component: {fileID: 245566112}
   m_Layer: 0
   m_Name: Jumping
   m_TagString: Untagged
@@ -1125,9 +1126,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25ccb89abdd58aa4c895e95171a746a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  action: {fileID: 245566110}
+  action: {fileID: 245566112}
   stateName: 
   stateActive: 0
+--- !u!114 &245566112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245566108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cb4cb3f7b389bf438bad7fe946e5852, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: ProcessAction
+  subStates: []
+  actionName: Jump
+  ascendAction: AscendAction
+  descendAction: DescendAction
+  startAction: StartAction
+  maintainAction: MaintainAction
+  endAction: EndAction
+  processAction: ProcessAction
+  speed: 15
+  startcost: 0
+  endCost: 0
+  canDoAction: 1
+  rotation: {x: 0, y: 0, z: 0}
+  characterSprite: {fileID: 0}
+  fallSpeed: 0.045
 --- !u!4 &249238289 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1057363065345950408, guid: bab218ddc5761814ebc441c154187840, type: 3}
@@ -2929,7 +2958,7 @@ GameObject:
   - component: {fileID: 883840609}
   m_Layer: 0
   m_Name: Bones
-  m_TagString: Untagged
+  m_TagString: Bones
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
