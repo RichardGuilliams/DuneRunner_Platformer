@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Ray : MonoBehaviour
 {
+    public Hashtable hash;
     [Header("Object this ray shares data with.")]
     public GameObject rayHost;
     public string rayName;
